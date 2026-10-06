@@ -1,0 +1,26 @@
+- id: KI-001
+  title: Deployment metrics missing after rename
+  signals:
+    - deployment inventory exists but Prometheus returns no series
+    - normalized deployment label does not match current name
+  skill_id: observability/prometheus-target-down
+  status: active
+  summary: Verify scrape targets and deployment label correlation before inferring an outage.
+
+- id: KI-002
+  title: Rollout leaves one replica unavailable
+  signals:
+    - desired replicas exceed available replicas
+    - KubeDeploymentReplicasMismatch is firing
+  skill_id: deployment/replica-mismatch
+  status: active
+  summary: Validate rollout conditions, readiness, and scheduling evidence for the unavailable replica.
+
+- id: KI-003
+  title: Restart increase follows startup probe failures
+  signals:
+    - pods keep restarting
+    - startup probe failures appear in pod events
+  skill_id: deployment/crashloopbackoff
+  status: monitoring
+  summary: Confirm current events and previous-container logs before changing probe behavior.

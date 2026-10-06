@@ -1,0 +1,1 @@
+"""Operational skill registry."""

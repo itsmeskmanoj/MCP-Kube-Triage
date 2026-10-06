@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kube-triage"
+version = "0.1.0"
+description = "Read-only multi-cluster Kubernetes operations MCP server"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28,<1",
+    "mcp[cli]>=1.29,<2",
+    "psycopg[binary]>=3.2,<4",
+    "pydantic-settings>=2.10,<3",
+    "pyyaml>=6.0,<7",
+    "sqlalchemy>=2.0,<3",
+    "uvicorn>=0.35,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "build>=1.3,<2",
+    "pytest>=8.4,<10",
+    "pytest-cov>=7.0,<8",
+    "ruff>=0.13,<1",
+]
+
+[project.scripts]
+kube-triage = "kube_triage.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kube_triage"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
