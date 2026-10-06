@@ -1,0 +1,21 @@
+services:
+  kube-triage:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 8080
+      DATABASE_URL: sqlite:///file:/app/data/inventory.db?mode=ro&uri=true
+      PROMETHEUS_MODE: fixture
+      PROMETHEUS_FIXTURE_FILE: /app/fixtures/prometheus.json
+      SKILL_REGISTRY_DIR: /app/skill-registry
+      KNOWN_ISSUES_FILE: /app/known-issues/catalog.yaml
+      LOG_LEVEL: INFO
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL

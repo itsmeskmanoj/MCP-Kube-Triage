@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "kube-triage": {
+      "type": "stdio",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "args": ["-m", "kube_triage", "--transport", "stdio"]
+    }
+  }
+}
